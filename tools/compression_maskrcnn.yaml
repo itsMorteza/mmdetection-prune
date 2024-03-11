@@ -1,0 +1,29 @@
+model:
+  arch: maskrcnn
+
+  compression_parameters:
+    k: 256
+    fc_subvector_size: 4 # d_fc
+    pw_subvector_size: 4 # d_pw
+    # Small or large block compression regime for convolutional layers
+    large_subvectors: False
+    k_means_type: src
+    k_means_n_iters: 1_000
+
+    # allow special parameters for some layers; used to replicate FAIR paper
+    layer_specs:
+      backbone.body.layers.layer1.0.conv1:
+        k: 128
+      backbone.body.layer1.0.conv1:
+        k: 128
+      roi_heads.box_head.fc6:
+        subvector_size: 16
+
+    # NOTE: backbone.body.conv1 and backbone.body.layers.conv1 are the same layer, just named differently depending
+    # on different torchvision versions
+    ignored_modules:
+      - module.backbone.conv1 
+      - module.backbone.layer1.1.conv1
+      - module.rpn_head.rpn_cls
+      - module.rpn_head.rpn_reg
+      - module.roi_heads.mask_head.conv_logits
