@@ -15,7 +15,7 @@ conda activate open-mmlab
 ```shell
 conda install pytorch=1.3.0 cudatoolkit=10.0 torchvision=0.2.2 -c pytorch
 ```
-3.  Build the ``mmcv-full`` from source with pytorch 1.3.0 and cuda 10.0
+3.  Build the ``mmcv-full`` from source with pytorch 1.3.0 and cuda 10.0 : mmcv-version 1.3.16
 #### Please use gcc-5.4 and nvcc 10.0
 ```shell
  git clone https://github.com/open-mmlab/mmcv.git
@@ -28,16 +28,12 @@ conda install pytorch=1.3.0 cudatoolkit=10.0 torchvision=0.2.2 -c pytorch
 e.g. [MMdetection](https://github.com/open-mmlab/mmdetection)
 
 ```shell
-pip install mmdet==2.13.0
+pip install mmdet==2.18.0
 ```
 
-#### 3. Pruning the model.
+#### 3. Pruning the model and Fine tuning.
 
 e.g. Detection
-
-```shell
-cd detection
-```
 
 Modify the `load_from` as the path to the baseline model in  of `xxxx_pruning.py`
 
@@ -49,4 +45,8 @@ sh tools/slurm_test.sh PATITION_NAME JOB_NAME configs/retina/retina_pruning.py P
 # for torch.dist
 # sh tools/dist_train.sh configs/retina/retina_pruning.py 8
 ```
-credit to [mmdetection] and [mmcv] and [torch-pruning] and [FisherPruning]
+Built on top of these amazing libraries:
+[MMdetection](https://github.com/open-mmlab/mmdetection) 
+[MMCV](https://github.com/open-mmlab/mmcv.git)
+[torch-pruning](https://github.com/VainF/Torch-Pruning)
+[FisherPruning](https://github.com/jshilong/FisherPruning)
